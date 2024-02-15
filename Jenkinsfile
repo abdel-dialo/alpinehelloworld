@@ -25,6 +25,14 @@ pipeline {
         
             }
         }
+        stage('clear container') {
+            steps {
+                sh '''
+                 'docker stop $IMAGE_NAME'
+                 'docker rm $IMAGE_NAME'
+                '''       
+            }
+        }
         stage('Release') {
             steps {
                 sh '''
