@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME=alpinehelloworld
-        TAG_NAME=latest
+        IMAGE_NAME='alpinehelloworld'
+        TAG_NAME='latest'
     }
 
     stages {
