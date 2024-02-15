@@ -4,12 +4,14 @@ pipeline {
     environment {
         IMAGE_NAME='alpinehelloworld'
         TAG_NAME='latest'
+        DOCKER_HUB_ACCESS = credentials('credentiel dockerhub')
     }
 
     stages {
         stage('Build') {
             
             steps {
+                sh 'echo  $DOCKER_HUB_ACCESS '
                 sh 'docker build -t $IMAGE_NAME:$TAG_NAME .'
                 sh 'docker rm -f  $IMAGE_NAME'
             }
