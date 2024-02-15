@@ -27,8 +27,8 @@ pipeline {
         stage('clear container') {
             steps {
                 sh '''
-                 'docker stop $IMAGE_NAME'
-                 'docker rm $IMAGE_NAME'
+                 docker stop $IMAGE_NAME
+                 docker rm $IMAGE_NAME
                 '''       
             }
         }
