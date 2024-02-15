@@ -2,17 +2,16 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME='${PARAM_IMAGE_NAME}'
-        TAG_NAME='${PARAM_TAG_NAME}'
-        DOCKERHUB_ID='${PARAM_DOCKERHUB_ID}'
-        DOCKERHUB_PW='${DOCKERHUB_PW}'
+        IMAGE_NAME="${PARAM_IMAGE_NAME}"
+        TAG_NAME="${PARAM_TAG_NAME}"
+        DOCKERHUB_ID="${PARAM_DOCKERHUB_ID}"
+        DOCKERHUB_PW="${DOCKERHUB_PW}"
     }
 
     stages {
         stage('Build') {
             
             steps {
-                sh 'echo  $DOCKER_HUB_ACCESS '
                 sh 'docker build -t $IMAGE_NAME:$TAG_NAME .'
                 sh 'docker rm -f  $IMAGE_NAME'
             }
