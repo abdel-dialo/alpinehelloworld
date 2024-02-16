@@ -13,6 +13,10 @@ pipeline {
         INTERNAL_PORT = "${PARAM_INTERNAL_PORT}"              /*5000 par défaut*/
         EXTERNAL_PORT = "${PARAM_PORT_EXPOSED}"
         CONTAINER_IMAGE = "${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}"
+        ID_RSA = credentials('ID_RSA')
+        SERVER_USER = "${PARAM_SERVER_USER}"
+        SERVER_IP = "${PARAM_SERVER_IP}"
+        
     }
 
     parameters {
@@ -85,6 +89,18 @@ pipeline {
             sh """
               echo  {\\"your_name\\":\\"${APP_NAME}\\",\\"container_image\\":\\"${CONTAINER_IMAGE}\\", \\"external_port\\":\\"${EXTERNAL_PORT}00\\", \\"internal_port\\":\\"${INTERNAL_PORT}\\"}  > data.json 
               curl -v -X POST http://${STG_API_ENDPOINT}/staging -H 'Content-Type: application/json'  --data-binary @data.json  2>&1 | grep 200
+            """
+          }
+        }
+      }
+    stage('PROD - Deploy app') {
+      agent any
+      steps {
+          script {
+            sh """
+              chmod og= $ID_RSA
+              apk update && apk add openssh-client
+              ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP
             """
           }
         }
