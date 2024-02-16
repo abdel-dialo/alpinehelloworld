@@ -18,8 +18,8 @@ pipeline {
     parameters {
         // booleanParam(name: "RELEASE", defaultValue: false)
         // choice(name: "DEPLOY_TO", choices: ["", "INT", "PRE", "PROD"])
-        string(name: 'PARAM_IMAGE_NAME', defaultValue: 'alpinehelloworld', description: 'Image Name')
-        string(name: 'PARAM_PORT_EXPOSED', defaultValue: '80', description: 'APP EXPOSED PORT')        
+         string(name: 'PARAM_IMAGE_NAME', defaultValue: 'alpinehelloworld', description: 'Image Name')
+         string(name: 'PARAM_PORT_EXPOSED', defaultValue: '80', description: 'APP EXPOSED PORT')        
     }
     agent none
     stages {
@@ -90,4 +90,4 @@ pipeline {
         }
      
      }
-     
+    } 
