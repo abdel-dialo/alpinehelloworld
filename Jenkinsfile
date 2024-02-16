@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME="${PARAM_IMAGE_NAME}"
         TAG_NAME="${PARAM_TAG_NAME}"
         DOCKERHUB_ID="${PARAM_DOCKERHUB_ID}"
-        //DOCKERHUB_PW="${DOCKERHUB_PW}"
+        DOCKERHUB_PW=credentiels('DOCKERHUB_PW')
     }
 
     stages {
