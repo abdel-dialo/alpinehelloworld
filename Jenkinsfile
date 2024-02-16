@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME="${PARAM_IMAGE_NAME}"
         TAG_NAME="${PARAM_TAG_NAME}"
         DOCKERHUB_ID="${PARAM_DOCKERHUB_ID}"
-        DOCKERHUB_PW=credentiels('DOCKERHUB_PW')
+        DOCKERHUB_PASSWORD=credentials('DOCKERHUB_PW')
     }
 
     stages {
@@ -35,8 +35,8 @@ pipeline {
         stage('Release') {
             steps {
                 sh '''
-                echo $DOCKERHUB_PW | docker login -u $DOCKERHUB_ID --password-stdin
-                docker push  $IMAGE_NAME:$TAG_NAME
+                echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_ID --password-stdin
+                docker push  $DOCKERHUB_ID/$IMAGE_NAME:$TAG_NAME
                 '''
         
             }
