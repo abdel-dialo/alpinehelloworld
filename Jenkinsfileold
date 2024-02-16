@@ -6,6 +6,8 @@ pipeline {
         TAG_NAME="${PARAM_TAG_NAME}"
         DOCKERHUB_ID="${PARAM_DOCKERHUB_ID}"
         DOCKERHUB_PASSWORD=credentials('DOCKERHUB_PW')
+        ENV_STAGING = "${PARAM_ENV_STAGING}" 
+        ENV_PROD = "${PARAM_ENV_STAGING}"
     }
 
     stages {
@@ -37,6 +39,15 @@ pipeline {
                 sh '''
                 echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_ID --password-stdin
                 docker push  $DOCKERHUB_ID/$IMAGE_NAME:$TAG_NAME
+                '''
+        
+            }
+        }
+        stage('deploy in staging') {
+            steps {
+                sh '''
+                echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_ID --password-stdin
+                docker pull   $DOCKERHUB_ID/$IMAGE_NAME:$TAG_NAME
                 '''
         
             }
