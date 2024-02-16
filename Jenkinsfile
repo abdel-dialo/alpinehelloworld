@@ -8,8 +8,8 @@ pipeline {
         PRODUCTION = "${PARAM_APP_NAME}-prod"
         DOCKERHUB_ID = "${PARAM_DOCKERHUB_ID}"
         DOCKERHUB_PASSWORD = credentials('dockerhub')
-        STG_API_ENDPOINT =         /* Mettre le couple IP:PORT de votre API eazylabs, exemple 100.25.147.76:1993 */
-        STG_APP_ENDPOINT =         /* Mettre le couple IP:PORT votre application en staging, exemple 100.25.147.76:8000 */
+        STG_API_ENDPOINT = "ip10-0-16-4-cn7nbjjk3ds0ljr4djjg-1993.direct.docker.labs.eazytraining.fr"         /* Mettre le couple IP:PORT de votre API eazylabs, exemple 100.25.147.76:1993 */
+        STG_APP_ENDPOINT =  "ip10-0-16-4-cn7nbjjk3ds0ljr4djjg-80.direct.docker.labs.eazytraining.fr"       /* Mettre le couple IP:PORT votre application en staging, exemple 100.25.147.76:8000 */
         INTERNAL_PORT = "${PARAM_INTERNAL_PORT}"              /*5000 par défaut*/
         EXTERNAL_PORT = "${PARAM_PORT_EXPOSED}"
         CONTAINER_IMAGE = "${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}"
@@ -90,20 +90,4 @@ pipeline {
         }
      
      }
-     stage('PROD - Deploy app') {
-       when {
-           expression { GIT_BRANCH == 'origin/main' }
-       }
-     agent any
-
-       steps {
-          script {
-            sh """
-              echo  {\\"your_name\\":\\"${APP_NAME}\\",\\"container_image\\":\\"${CONTAINER_IMAGE}\\", \\"external_port\\":\\"${EXTERNAL_PORT}\\", \\"internal_port\\":\\"${INTERNAL_PORT}\\"}  > data.json 
-              curl -v -X POST http://${PROD_API_ENDPOINT}/prod -H 'Content-Type: application/json'  --data-binary @data.json  2>&1 | grep 200
-            """
-          }
-       }
-     }
-  }
-}
+     
