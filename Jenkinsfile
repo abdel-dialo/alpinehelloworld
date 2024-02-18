@@ -96,7 +96,7 @@ pipeline {
       agent any
       steps {
           script {
-              sshagent(['54.86.20.3']) {
+              sshagent(['ID_RSA']) {
                   sh 'ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP mkdir test'
                     }
           }
