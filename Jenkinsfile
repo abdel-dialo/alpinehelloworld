@@ -13,7 +13,6 @@ pipeline {
         INTERNAL_PORT = "${PARAM_INTERNAL_PORT}"              /*5000 par défaut*/
         EXTERNAL_PORT = "${PARAM_PORT_EXPOSED}"
         CONTAINER_IMAGE = "${DOCKERHUB_ID}/${IMAGE_NAME}:${IMAGE_TAG}"
-        ID_RSA = credentials('ID_RSA')
         SERVER_USER = "${PARAM_SERVER_USER}"
         SERVER_IP = "${PARAM_SERVER_IP}"
         
