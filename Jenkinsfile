@@ -97,7 +97,10 @@ pipeline {
       steps {
           script {
               sshagent(['ID_RSA']) {
-                  sh 'ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP mkdir test'
+                  sh '''
+                        ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_ID --password-stdin
+                        ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker run --name $IMAGE_NAME -d -p $APP_EXPOSED_PORT:$INTERNAL_PORT  -e PORT=$INTERNAL_PORT ${DOCKERHUB_ID}/$IMAGE_NAME:$IMAGE_TAG
+                    '''
                     }
           }
         }
