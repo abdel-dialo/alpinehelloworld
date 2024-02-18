@@ -98,7 +98,7 @@ pipeline {
       steps {
           script {
               sshagent(['54.86.20.3']) {
-                  sh 'ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker pull ${DOCKERHUB_ID}/$IMAGE_NAME:$IMAGE_TAG'
+                  sh 'ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP mkdir test'
                     }
           }
         }
