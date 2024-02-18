@@ -97,11 +97,9 @@ pipeline {
       agent any
       steps {
           script {
-            sh """
-              chmod og= $ID_RSA
-              apk update && apk add openssh-client
-              ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP
-            """
+              sshagent(['54.86.20.3']) {
+                  sh 'ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker pull ${DOCKERHUB_ID}/$IMAGE_NAME:$IMAGE_TAG'
+                    }
           }
         }
       }
