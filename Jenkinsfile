@@ -106,4 +106,13 @@ pipeline {
         }
       }
     }
+    post {
+        success {
+            slackSend channel: '#devops', color: '#439FE0', message: 'SUCCESS JOB  ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)' 
+        }
+        failure {
+            slackSend channel: '#devops', color: '#439FE0', message: 'FAILURE JOB  ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)'
+        
+           }
+    }
 }
