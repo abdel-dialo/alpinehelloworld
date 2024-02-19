@@ -1,5 +1,3 @@
-/* import shared library */
-@Library('shared-library')_
 pipeline {
     environment {
         IMAGE_NAME = "${PARAM_IMAGE_NAME}"                    /*alpinehelloworld par exemple*/
