@@ -1,4 +1,4 @@
-@Library('shared-library') _
+@Library('shared-library')_
 pipeline {
     environment {
         IMAGE_NAME = "${PARAM_IMAGE_NAME}"                    /*alpinehelloworld par exemple*/
@@ -93,19 +93,19 @@ pipeline {
      //     }
      //   }
      // }
-    stage('PROD - Deploy app') {
-      agent any
-      steps {
-          script {
-              sshagent(['ID_RSA']) {
-                  sh '''
-                        ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_ID --password-stdin
-                        ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker run --name $IMAGE_NAME -d -p $APP_EXPOSED_PORT:$INTERNAL_PORT  -e PORT=$INTERNAL_PORT ${DOCKERHUB_ID}/$IMAGE_NAME:$IMAGE_TAG
-                    '''
-                    }
-          }
-        }
-      }
+    // stage('PROD - Deploy app') {
+    //  agent any
+    //  steps {
+    //      script {
+    //          sshagent(['ID_RSA']) {
+    //              sh '''
+    //                    ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_ID --password-stdin
+    //                    ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker run --name $IMAGE_NAME -d -p $APP_EXPOSED_PORT:$INTERNAL_PORT  -e PORT=$INTERNAL_PORT ${DOCKERHUB_ID}/$IMAGE_NAME:$IMAGE_TAG
+    //                '''
+    //                }
+    //      }
+    //    }
+    //  }
     }
     post {
         always {
