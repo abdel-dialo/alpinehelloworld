@@ -1,3 +1,4 @@
+@Library('shared-library') _
 pipeline {
     environment {
         IMAGE_NAME = "${PARAM_IMAGE_NAME}"                    /*alpinehelloworld par exemple*/
@@ -107,12 +108,10 @@ pipeline {
       }
     }
     post {
-        success {
-            slackSend channel: '#devops', color: '#439FE0', message: "SUCCESS JOB  '${env.JOB_NAME} ${env.BUILD_NUMBER}' (<${env.BUILD_URL}|Open>)"
-        }
-        failure {
-            slackSend channel: '#devops', color: '#439FE0', message: "FAILURE JOB  '${env.JOB_NAME} ${env.BUILD_NUMBER}' (<${env.BUILD_URL}|Open>)"
-        
-           }
+        always {
+        script {
+         notifySlack currentBuild.result
+             }
     }
+}
 }
