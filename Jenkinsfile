@@ -33,6 +33,7 @@ pipeline {
            agent any
            steps {
               script {
+                sh 'terraform --version'
                 sh 'docker build -t ${DOCKERHUB_ID}/$IMAGE_NAME:$IMAGE_TAG .'
               }
            }
